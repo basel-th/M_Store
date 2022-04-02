@@ -1,0 +1,241 @@
+<!-- START MAIN PAGE BY BASEL AHMED -->
+
+<!-- START CONNECT WITH DATABASE BY BASEL AHMED  -->
+  
+<?php  include'inc/db.php'; ?>
+
+<!-- END CONNECT WITH DATABASE BY BASEL AHMED -->
+
+<!-- STARAT HTML PAGE BY BASEL AHMED -->
+<!DOCTYPE html>
+
+  <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <meta http-equiv="X-UA-Compatible" content="IE=edge">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>M_Store </title>
+              <link rel="stylesheet" href="fontawesome-free-6.0.0-beta3-web/css/all.css">
+              <link rel="stylesheet" href="fontawesome-free-6.0.0-beta3-web/css/v4-shims.css">
+              <link rel='stylesheet' href='css/bootstrap.min.css'>
+              <link rel='stylesheet' href='css/style3.css'>
+          </head>
+
+          <body>
+
+          <!-- STRAT NAV BY BASEL AHMED -->
+          
+              <nav class="navbar navbar-expand-lg    navbar-dark bg-dark">
+
+                    <div class="container-fluid">
+
+                      <a class="navbar-brand" href="#"> <i class="fas fa-store-alt fa-2x text-info"></i>  <span> MyStore </span> </a>
+
+                      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                      </button>
+
+                      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                          <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="index.php">   <i class="fas fa-home fa-2x text-white"></i> <span> Home </span> </a>
+                          </li>
+
+                          <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Devices
+                            </a>
+
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                              <li><a class="dropdown-item " href="main/Sone.php">Sone</a></li>
+                              <li><a class="dropdown-item" href="main/Samsung.php">Samsung</a></li>
+                              <li><a class="dropdown-item" href="main/iphone.php">iphone</a></li>
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a class="dropdown-item" href="index.php">All Devices</a></li>
+                            </ul>
+
+                          </li>
+
+                          <li class="nav-item d-flexd ">
+                            <a class="nav-link active " aria-current="page" href="regist.php">     </i> <span>Sing in</span></a>
+                          </li>
+                          
+                        </ul>
+
+                          <form class="d-flex" action="main/search.php" method="get" >
+                          <input class="form-control me-2"  name="searchArea" type="search" placeholder="Write Name Of Device..." aria-label="Search">
+                          <button class="btn btn-outline-primary"  name="search" type="submit"> <i class="fas fa-search "></i></button>
+                        
+                        </form>
+                      </div>
+                    </div>
+                  </nav>
+                  
+          <!-- END NAV BY BASEL AHMED -->
+
+          <!-- START CONTAINER BY BASEL AHMED -->
+
+              <div class="container -lg mt-5">
+                <div class="row">
+
+                <!-- START PHP FOR INSERT  DATA FOR LOGIN BY BASEL AHMED --> 
+
+                    <?php 
+                            if(isset($_POST['regist']))
+                            {
+                                $email=$_POST['email'];
+                                $fullname=$_POST['fullname'];
+                                $username=$_POST['username'];
+                                $pass1=$_POST['password'];
+                                $pass2=$_POST['repassword'];
+
+                                if(empty($email)||empty($fullname)||empty($username)||empty($pass1)||empty($pass2))
+                                  {
+                                      $message ="Please Full All Filed";
+                                  }
+                                else
+                                  {
+                                    if($pass1===$pass2)
+                                    {
+                                        $sql="insert into users(fullname,email,username,password)values('$fullname','$email','$username','$pass1')";
+                                        $ret=mysqli_query($con,$sql);
+                                            if($ret){
+                                                    $message="Add Success";
+                                                    }
+                                            else{
+                                                    $message="There is Rorro ";
+                                                }
+                                    }
+                                  }
+                                }
+                      ?>
+
+                <!-- END PHP FOR INSERT  DATA FOR LOGIN BY BASEL AHMED --> 
+
+                            
+                  <div class="col-sm-6 offset-sm-3 border border-info p-3  ">
+
+                    <h3 class=" text-center p-3 bg-primary text-white" > Rigistration</h3>    
+
+                    <div class="col-sm-6 offset-sm-3  ">
+                      <h3 class="alert alert-WHITE  text-center"><?php echo @$message;?></h3>
+
+                    </div>   
+                          <!-- STRAT FROM  BY BASEL AHMED -->
+
+                          <form  method="POST" action=""   >
+
+                                <div class="mb-3 ">
+                                    <label class="lg" > Full Nmae: </label>
+                                    <input type="text" name="fullname" class="form-control  " placeholder="Write Your Full Name " >
+                                </div>
+
+                                <div class="mb-3 ">
+                                  <label >Email:</label>
+                                  <input type="text"  name="email" class="form-control" placeholder="Write Your Email">
+                                </div>
+
+                                <div class="mb-3 ">
+                                  <label >User Name:</label>
+                                  <input type="text"  name="username" class="form-control" placeholder="Write Your User Name">
+                                </div>
+
+                                <div class="mb-3 ">
+                                  <label >Password:</label>
+                                  <input   type="text" name="password" class="form-control" placeholder="Write Your Password" >
+                                </div>
+
+                                <div class="mb-3 ">
+                                  <label >RePassword:</label>
+                                  <input  type="text"  name="repassword" class="form-control" placeholder="Write Your RePassword" >
+                                </div>
+
+                                
+                                <input type="submit"  name="regist" class="btn btn-outline-primary" value="Sing In"/>
+
+                            </form>
+
+                            <!-- END FROM  BY BASEL AHMED -->
+                          
+                  </div>
+              
+                </div>
+              </div>
+
+     <!-- END CONTAINER BY BASEL AHMED -->
+
+     <!-- STRAT FOOTER BY BASEL AHMED -->
+
+          <div class="footer">
+                <div class="col-lg-6">
+
+                <form action="" method="POST" class="  p-5 ">
+                  <div class="row">
+
+                      <div class="col-sm-6 offset-sm-6">
+                                          
+                      </div>
+                      <div class="form-group text-white p-1">
+                            <label><i class="fas fa-user text-info"></i> User Name </label>
+                            <input type="name" name="name" class="form-control" placeholder="Write Your Name">
+                      </div>
+
+                      <div class="form-group text-white p-1 ">
+                            <label> <i class="fas fa-envelope text-info"></i> Email </label>
+                            <input type="email" name="email" class="form-control" placeholder="Write Your Eamil">
+                      </div>
+
+                      <div class="form-group p-1 text-white">
+                            <label>  <i class="fas fa-lock text-info"></i> Pssword </label>
+                            <input type="password" name="password" class="form-control" placeholder="Write Your Password">
+                      </div>
+
+                      <div class="form-group  p-1">
+                        <input type="submit" name="singin" value="Sing In" class="btn btn-outline-primary mt-3">
+
+                        <?php
+
+                            if(isset($_POST['singin']))
+                              {
+                                  $user=$_POST['name'];
+                                  $pass=$_POST['password'];
+                                  $sql="SELECT * FROM users where username='$user' And  password='$pass' ";
+                                  $ret=mysqli_query($con,$sql);
+                                    while($res=mysqli_fetch_assoc($ret))
+                                    {
+                                      $_SESSION['user']=$user;
+                                      echo"<script>window.location.href='wlcome.php'</script>";
+                                     // header("Location:user/wlcome.php");
+                                    }
+                              }
+                              ?>
+                      </div>
+                  </div>
+                </form>
+              
+                <div class="text-white foot">
+                      <p>
+                           <i class="fas fa-envelope  fa-1x text-info"> </i>   <span class=" text-white  "> Baselahmed856@gmial.com  </span><br>
+                           <i class="fas fa-mobile-alt fa-1x text-info"> </i> <span class=" text-white  ">   +967773216193 </span> <br>
+                           <i class="fas fa-map-marker-alt  fa-1x text-info"> </i>  <span class=" text-white  "> Aden - Yemen </span> <br>
+                      </p>
+                      <i class="fas fa-code fa-1x text-info">  </i>  <span class=" text-white  ">  Copyright &copy;   2021   BASEL   AL-QRUPEAY </span>
+                </div>
+
+                    
+                </div>
+
+               
+              </div>  
+
+          <!-- END FOOTER BY BASEL AHMED -->    
+
+      <script src="js/bootstrap.min.js"></script>
+
+</body>
+</html>
+
+<!-- END HTML PAGE BY BASEL AHMED -->
+
